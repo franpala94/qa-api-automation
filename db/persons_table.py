@@ -11,7 +11,7 @@ class PersonsTable:
     def __init__(self, region_name="us-east-1"):
         """
         Inicializa el recurso de DynamoDB.
-        Se asume que las credenciales y configuración de AWS están resueltas por entorno o perfil.
+        En el caso de tener mas consultas a tablas podriamos migrar esta porcion de codigo al conftest y llamarlo.
         """
         self.dynamodb = boto3.resource("dynamodb", region_name=region_name)
         self.table_name = "Persons"
@@ -34,5 +34,5 @@ class PersonsTable:
                 logger.warning("No se encontro el item")
                 return None
         except ClientError as e:
-            logger.error(f"Error al acceder a DynamoDB: {e.response['Error']['Message']}")
+            logger.error(f"Error al acceder a DynamoDB: {e}")
             return None
